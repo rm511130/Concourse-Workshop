@@ -320,6 +320,12 @@ run:
 EOF
 ```
 
+- Let's check the contents of `lab01.yml`. Please execute the following command:
+
+```
+cat lab01.yml
+```
+
 - Now let's execute your very 1st Concourse task. We're not calling it your very 1st Concourse Pipeline because it's literally a simple task. Please execute the following command:
 
 ```
@@ -388,13 +394,16 @@ succeeded
     - The execution time was faster
     - Concourse is keeping track of the build number
     - You obtained the exact same results: i.e. the echo of the `Hello` phrase.
+
+- Go back to your Concourse Web GUI and refresh the screen. You should see nothing new. No pipelines have been created just yet.
     
 
 **Let's recap:** 
 - You ssh'ed into your Workshop VM and verified the versions of certain installed CLIs (Command Line Interface) such as the cf CLI.
 - You installed Concourse on your Workshop VM using docker-compose
 - You used the **fly** CLI
-- You create one of the simplest Concourse Pipelines possible. It had a single task.
+- You create one of the simplest Concourse tasks possible.
+- You haven't yet created your first pipeline.
 
 - Congratulations, you have completed LAB-1.
 
@@ -402,6 +411,91 @@ Please update the [Workshop Google Sheet](https://docs.google.com/spreadsheets/d
 
 
 -----------------------------------------------------
+
+## LAB-2: Concourse Tasks, Jobs and Pipelines
+
+![](./images/lab.png)
+
+- Let's create `lab02.yml` using the following command. In this step we are creating a job within a pipeline, rather than running a one-off task:
+
+```
+cat << ABC > lab02.yml
+jobs:
+- name: hello
+  plan:
+  - task: howdy
+    config:
+      platform: linux
+      image_resource:
+        type: docker-image
+        source: {repository: ubuntu}
+      run:
+        path: echo
+        args: ["Hello, this is $user's first pipeline!"]
+ABC
+```
+
+- Let's check the contents of `lab02.yml`. Please execute the following command:
+
+```
+cat lab02.yml
+```
+
+- To deploy this pipeline to your Concourse server, please use the following fly command to set a pipeline. Every workshop participant has his/her own Concourse server, so we don't need to worry about creating unique pipeline names. There's no risk of pipeline name collision. When you execute the following command you will be asked `apply configuration? [yN]:`, please answer `Y`.
+
+```
+fly -t workshop set-pipeline -p pipeline-lab02 -c lab02.yml
+```
+
+- You should see results that look something like the example shown below:
+
+```
+jobs:
+  job hello has been added:
++ name: hello
++ plan:
++ - config:
++     container_limits: {}
++     image_resource:
++       source:
++         repository: ubuntu
++       type: docker-image
++     platform: linux
++     run:
++       args:
++       - Hello, this is user1's first pipeline!
++       path: echo
++   task: howdy
+  
+apply configuration? [yN]: y
+pipeline created!
+you can view your pipeline here: http://user1.pks4u.com:8080/teams/main/pipelines/pipeline-lab02
+
+the pipeline is currently paused. to unpause, either:
+  - run the unpause-pipeline command:
+    fly -t workshop unpause-pipeline -p pipeline-lab02
+  - click play next to the pipeline in the web ui
+```
+
+- Let's unpause and trigger the execution of the pipeline using your Workshop VM and the **fly** CLI. Please execute the following commands:
+
+```
+fly -t workshop unpause-pipeline -p pipeline-lab02
+fly -t workshop trigger-job -j pipeline-lab02/hello
+watch -n 1 fly -t workshop builds
+```
+
+- Once you see that your job `pipeline-lab02/hello` has a status of `succeeded`, you can use `CTRL-C` to exit the `watch` command.
+
+
+
+
+
+
+
+
+
+
 
 
 
