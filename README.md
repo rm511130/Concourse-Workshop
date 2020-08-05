@@ -523,7 +523,7 @@ fly -t workshop set-pipeline -p pipeline-lab02 -c lab02.yml -n
 
 - Now take a look at your Concourse Web GUI and you should see the following:
 
-![](./images/ci-2.png)
+![](./images/ci-2b.png)
 
 - Click on the `play` button, as shown above, and you should see the following:
 
