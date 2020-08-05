@@ -489,6 +489,20 @@ watch -n 1 fly -t workshop builds
 
 - Once you see that your job `pipeline-lab02/hello` has a status of `succeeded`, you can use `CTRL-C` to exit the `watch` command.
 
+- To see the output from the job we just ran, please execute the following command:
+
+```
+fly -t workshop watch -j pipeline-lab02/hello
+```
+
+- You should see the following output:
+```
+initializing
+running echo Hello, this is user1's first pipeline!
+Hello, this is user1's first pipeline!
+succeeded
+```
+
 - Let's do it all over again, but this time using the Concourse Web GUI. Please execute the following command on your Workshop VM to destroy the existing `pipeline-lab02`:
 
 ```
