@@ -42,6 +42,8 @@ This 2 hour hands-on session will provide developers and operators with hands on
    - No plugins but docker images. You bring your own docker image. You don't depend on pre-installed plugins.
    - We don't need to backup concourse. Instead we should find a way to simply redeploy our pipelines again.
    - Infrastructure agnostic (we can deploy it in AWS, vSphere, GCP, Azure, others)
+   
+- [Concourse documentation (e.g. release notes)](https://docs.pivotal.io/p-concourse/v5/rn/)
 
 ## Workshop Orientation: Guidelines & Conventions
 
@@ -141,19 +143,19 @@ services:
       - CONCOURSE_POSTGRES_USER=concourse_user
       - CONCOURSE_POSTGRES_PASSWORD=concourse_pass
       - CONCOURSE_POSTGRES_DATABASE=concourse
-      - CONCOURSE_EXTERNAL_URL
+      - CONCOURSE_EXTERNAL_URL=http://$user.pks4u.com:8080
       - CONCOURSE_ADD_LOCAL_USER=admin:admin
       - CONCOURSE_MAIN_TEAM_LOCAL_USER=admin
 EOF
 ```
 
-- Let's start Concourse by executing the following command. Note: the `-d` means `detached`
+- Let's start Concourse by executing the following command. Note: the `-d` means `detached`, so once the `docker-compose` command has a Postgres database up and running, as well as the Concourse server components, you should get your Linux prompt back.
 
 ```
 docker-compose up -d
 ```
 
-- You should see an output similar to the example shown below:
+- You should see an output similar to the example shown below. Note: we will be using a bigger, shared Concourse server in subsequent labs, this first Lab is trying to show you that getting started is not difficult at all.
 
 ```
 Creating network "concourse_default" with the default driver
@@ -193,31 +195,206 @@ Creating concourse_concourse_1    ... done
 
 ![](./images/welcome-to-concourse.png)
 
-- If your company allows it, you can click on either the Apple, the Windows Symbol or the Penguim to download to your PC or Mac the **fly** CLI. We will continue to use the Workshop VM which already has the **fly** CLI installed.
+- In the future, if your company allows it, you can click on either the Apple, the Windows Symbol or the Penguim to download to your PC or Mac the **fly** CLI. We will continue to use the Workshop VM which already has the **fly** CLI installed. If you do download the **fly** CLI, just remember to place it in a directory that is your `PATH` and to make it executable with, for example, a `chmod +x` commmand. 
 
-- The **fly** CLI is just a single, self-contained executable file.
+- Note that the Apple, the Windows Symbol and the Penguim are also shown on the bottom-right of your Concourse Web GUI.
 
-- 
+- Using the Concourse Web GUI, log in as `admin` with password `admin`.
 
+- Back on your Workshop VM, please execute the following commands to target your Concourse CI/CD server:
 
+```
+fly --target workshop login --concourse-url http://$user.pks4u.com:8080 -u admin -p admin
+```
 
+- If your **fly** CLI is out of synch with your Concourse Server, you can always execute the following command. Please execute the following command:
 
+```
+fly --target workshop sync
+```
 
+- Now please execute the following command to get acquainted with the **fly** options:
+
+```
+$ fly --help
+```
+
+- You should see the following results:
+
+```
+Usage:
+  fly [OPTIONS] <command>
+
+Application Options:
+  -t, --target=              Concourse target name
+  -v, --version              Print the version of Fly and exit
+      --verbose              Print API requests and responses
+      --print-table-headers  Print table headers even for redirected output
+
+Help Options:
+  -h, --help                 Show this help message
+
+Available commands:
+  abort-build          Abort a build (aliases: ab)
+  active-users         List the active users since a date or for the past 2 months (aliases: au)
+  builds               List builds data (aliases: bs)
+  check-resource       Check a resource (aliases: cr)
+  check-resource-type  Check a resource-type (aliases: crt)
+  checklist            Print a Checkfile of the given pipeline (aliases: cl)
+  clear-task-cache     Clears cache from a task container (aliases: ctc)
+  completion           generate shell completion code
+  containers           Print the active containers (aliases: cs)
+  curl                 curl the api (aliases: c)
+  delete-target        Delete target (aliases: dtg)
+  destroy-pipeline     Destroy a pipeline (aliases: dp)
+  destroy-team         Destroy a team and delete all of its data (aliases: dt)
+  edit-target          Edit a target (aliases: etg)
+  execute              Execute a one-off build using local bits (aliases: e)
+  expose-pipeline      Make a pipeline publicly viewable (aliases: ep)
+  format-pipeline      Format a pipeline config (aliases: fp)
+  get-pipeline         Get a pipeline's current configuration (aliases: gp)
+  get-team             Show team configuration (aliases: gt)
+  help                 Print this help message
+  hide-pipeline        Hide a pipeline from the public (aliases: hp)
+  hijack               Execute a command in a container (aliases: intercept, i)
+  jobs                 List the jobs in the pipelines (aliases: js)
+  land-worker          Land a worker (aliases: lw)
+  login                Authenticate with the target (aliases: l)
+  logout               Release authentication with the target (aliases: o)
+  order-pipelines      Orders pipelines (aliases: op)
+  pause-job            Pause a job (aliases: pj)
+  pause-pipeline       Pause a pipeline (aliases: pp)
+  pin-resource         Pin a version to a resource (aliases: pr)
+  pipelines            List the configured pipelines (aliases: ps)
+  prune-worker         Prune a stalled, landing, landed, or retiring worker (aliases: pw)
+  rename-pipeline      Rename a pipeline (aliases: rp)
+  rename-team          Rename a team (aliases: rt)
+  resource-versions    List the versions of a resource (aliases: rvs)
+  resources            List the resources in the pipeline (aliases: rs)
+  set-pipeline         Create or update a pipeline's configuration (aliases: sp)
+  set-team             Create or modify a team to have the given credentials (aliases: st)
+  status               Login status
+  sync                 Download and replace the current fly from the target (aliases: s)
+  targets              List saved targets (aliases: ts)
+  teams                List the configured teams (aliases: t)
+  trigger-job          Start a job in a pipeline (aliases: tj)
+  unpause-job          Unpause a job (aliases: uj)
+  unpause-pipeline     Un-pause a pipeline (aliases: up)
+  unpin-resource       Unpin a resource (aliases: ur)
+  userinfo             User information
+  validate-pipeline    Validate a pipeline config (aliases: vp)
+  volumes              List the active volumes (aliases: vs)
+  watch                Stream a build's output (aliases: w)
+  workers              List the registered workers (aliases: ws)
+  ```
+
+- Now please execute the following command to understand where your access token is being stored:
+
+```
+cat ~/.flyrc
+```
+
+- You should see results similar to the example shown below:
+
+```
+targets:
+  workshop:
+    api: http://user1.pks4u.com:8080
+    team: main
+    token:
+      type: Bearer
+      value: eyJhbGciOiJSUzI1NiIsImtpZCI6IiIsInR5cCI6IkpXVCJ9.eyJjc3JmIjoiZTVmZTU2NTI4MjQ3MTk3NzcwOGJiMzk3MzgzN2M3Y2NhNTBmNmY5OGNhNTc0MzczNzk1MTM5ZGE1MzkwOGY5ZSIsImVtYWlsIjoiYWRtaW4iLCJleHAiOjE1OTY3Mzk5ODIsImlzX2FkbWluIjp0cnVlLCJuYW1lIjoiIiwic3ViIjoiQ2dWaFpHMXBiaElGYkc5allXdyIsInRlYW1zIjp7Im1haW4iOlsib3duZXIiXX0sInVzZXJfaWQiOiJhZG1pbiIsInVzZXJfbmFtZSI6ImFkbWluIn0.YjqncbHSaJkm-TjVpvLDyHSRcztSD3zBQZjzLpFXQPA6jtnG_lFEiM1J_l9FKFCWXr9geaEbBR3DCf2fBSMqouI2-uA_EhOaODxU1Ta6VuDUTwWOvj5BXg4tiQ5D7xW2u90nx9T84IqEGp_Oeq1B9J5pTd7ugG06nEwydMe-mT_i9aEJIYtmmRKECO1v-9_8DcqgfSLU6mH0kyyP_HUFSAOXwqlLVAcb8M4lqaPOqeJTCUahhw8C4YZDCWsCs3aM1hVNIuYMfojO7JuHod1cSdROeMAWzS2FTn4HNZNCe_Xh8FWXy9HLFRymYwHjUYI0CMiBH3Qmmn_XmQ6lITll-A
+```
+
+- Now let's create a `lab01.yml` file that will define you very 1st Concourse task. Please execute the following command:
+
+```
+cat << EOF > lab01.yml
+platform: linux
+image_resource:
+  type: docker-image
+  source: {repository: ubuntu}
+run:
+  path: echo
+  args: ["Hello, $user's first pipeline!"]
+EOF
+```
+
+- Now let's execute your very 1st Concourse task. We're not calling it your very 1st Concourse Pipeline because it's literally a simple task. Please execute the following command:
+
+```
+fly -t workshop execute -c lab01.yml
+```
+
+- You should see results similar to the example shown below:
+
+```
+uploading concourse done
+executing build 1 at http://user1.pks4u.com:8080/builds/1 
+initializing
+waiting for docker to come up...
+Pulling ubuntu@sha256:60f560e52264ed1cb7829a0d59b1ee7740d7580e0eb293aca2d722136edb1e24...
+sha256:60f560e52264ed1cb7829a0d59b1ee7740d7580e0eb293aca2d722136edb1e24: Pulling from library/ubuntu
+3ff22d22a855: Pulling fs layer
+e7cb79d19722: Pulling fs layer
+323d0d660b6a: Pulling fs layer
+b7f616834fd0: Pulling fs layer
+b7f616834fd0: Waiting
+e7cb79d19722: Verifying Checksum
+e7cb79d19722: Download complete
+323d0d660b6a: Verifying Checksum
+323d0d660b6a: Download complete
+b7f616834fd0: Verifying Checksum
+b7f616834fd0: Download complete
+3ff22d22a855: Download complete
+3ff22d22a855: Pull complete
+e7cb79d19722: Pull complete
+323d0d660b6a: Pull complete
+b7f616834fd0: Pull complete
+Digest: sha256:60f560e52264ed1cb7829a0d59b1ee7740d7580e0eb293aca2d722136edb1e24
+Status: Downloaded newer image for ubuntu@sha256:60f560e52264ed1cb7829a0d59b1ee7740d7580e0eb293aca2d722136edb1e24
+
+Successfully pulled ubuntu@sha256:60f560e52264ed1cb7829a0d59b1ee7740d7580e0eb293aca2d722136edb1e24.
+
+running echo Hello, user1's first pipeline!
+Hello, user1's first pipeline!
+succeeded
+```
+
+- So what did `fly -t workshop execute -c lab01.yml` actually do?
+   - downloaded an Ubuntu docker image resource 
+   - spun-up a container with the Ubuntu docker image
+   - used the Ubuntu container to execute an `echo` command where the arguments for the `echo` command where the phrase that was shown in the output logs   
+   
+- And if you execute the same command again, what will you see? Let's give it a try:
+
+```
+fly -t workshop execute -c lab01.yml
+```
+
+- The results should look something like this:
+
+```
+uploading concourse done
+executing build 2 at http://user1.pks4u.com:8080/builds/2 
+initializing
+running echo Hello, user1's first pipeline!
+Hello, user1's first pipeline!
+succeeded
+```
+
+- Note:
+    - The pulling of the Ubuntu docker image was not repeated. The image was already cached locally on the Concourse Server.
+    - The execution time was faster
+    - Concourse is keeping track of the build number
+    - You obtained the exact same results: i.e. the echo of the `Hello` phrase.
+    
 
 **Let's recap:** 
 - You ssh'ed into your Workshop VM and verified the versions of certain installed CLIs (Command Line Interface) such as the cf CLI.
-- You used `cf login` to point to a TAS platform and to login. You then used `cf push` to  push your first App to TAS: a game of chess.
-- Please note that:
-  - Your Chess App has a FQDN (fully qualified domain name)
-  - Your App is secured by a valid Certificate which enables HTTPS communication
-  - Your App was containerized using curated packages and deployed on the cloud in an HA environment
-  - As a developer, you did not have to worry about container filesystems and dependencies.
-  - Your App code, `index.php`, had no dependencies linked to the PaaS or IaaS you are using. You are completely cloud agnostic.
-  - Your App is running on a platform that is 100% up to date with the latest known [CVE](https://cve.mitre.org/) patches
-  - You did not have to open any tickets with Infrastructure, Operations, Networking, Security, ... to deploy your App.
-  - And yet, access to your Chess App is going through routers, load balancers, firewalls and benefiting from valid certificates. 
-  - Your Chess App has also been wired-in for logging (with log consolidation) and APM (Application Performance Monitoring).
-  - No wonder developers love TAS.
+- You installed Concourse on your Workshop VM using docker-compose
+- You used the **fly** CLI
+- You create one of the simplest Concourse Pipelines possible. It had a single task.
 
 - Congratulations, you have completed LAB-1.
 
@@ -226,11 +403,6 @@ Please update the [Workshop Google Sheet](https://docs.google.com/spreadsheets/d
 
 -----------------------------------------------------
 
-
-- Let's get ssh'ed into your Workshop VM. Please use your UserID from the Google Spreadsheet.
-
-```
-ssh -i ~/Download/fuse.pem ubuntu@user1.pks4u.com
 
 
 
