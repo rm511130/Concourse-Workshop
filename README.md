@@ -195,13 +195,15 @@ Creating concourse_concourse_1    ... done
 
 ![](./images/welcome-to-concourse.png)
 
-- In the future, if your company allows it, you can click on either the Apple, the Windows Symbol or the Penguim to download to your PC or Mac the **fly** CLI. We will continue to use the Workshop VM which already has the **fly** CLI installed. If you do download the **fly** CLI, just remember to place it in a directory that is your `PATH` and to make it executable with, for example, a `chmod +x` commmand. 
+- In the future, you can click on either the Apple, the Windows symbol or the Penguim to download the **fly** CLI to your PC or Mac. 
+- Note that the Apple, the Windows symbol and the Penguim are also shown on the bottom of your Concourse Web GUI.
+- If you do download the **fly** CLI, just remember to place it in a directory that is your `PATH` and to make it executable with, for example, a `chmod +x` commmand. 
 
-- Note that the Apple, the Windows Symbol and the Penguim are also shown on the bottom-right of your Concourse Web GUI.
+- We will continue to use the Workshop VM which already has the **fly** CLI installed. 
 
-- Using the Concourse Web GUI, log in as `admin` with password `admin`.
+- Using the Concourse Web GUI, you can click on the login link, and then log-in as `admin` with password `admin`. Keep your browser open, we will come back to it later, but you may see something interesting things happening on the Concourse Web GUI, as we execute this Lab.
 
-- Back on your Workshop VM, please execute the following commands to target your Concourse CI/CD server:
+- Back to your Workshop VM, please execute the following commands to target your Concourse CI/CD server:
 
 ```
 fly --target workshop login --concourse-url http://$user.pks4u.com:8080 -u admin -p admin
@@ -216,7 +218,7 @@ fly --target workshop sync
 - Now please execute the following command to get acquainted with the **fly** options:
 
 ```
-$ fly --help
+fly --help
 ```
 
 - You should see the following results:
@@ -306,7 +308,7 @@ targets:
       value: eyJhbGciOiJSUzI1NiIsImtpZCI6IiIsInR5cCI6IkpXVCJ9.eyJjc3JmIjoiZTVmZTU2NTI4MjQ3MTk3NzcwOGJiMzk3MzgzN2M3Y2NhNTBmNmY5OGNhNTc0MzczNzk1MTM5ZGE1MzkwOGY5ZSIsImVtYWlsIjoiYWRtaW4iLCJleHAiOjE1OTY3Mzk5ODIsImlzX2FkbWluIjp0cnVlLCJuYW1lIjoiIiwic3ViIjoiQ2dWaFpHMXBiaElGYkc5allXdyIsInRlYW1zIjp7Im1haW4iOlsib3duZXIiXX0sInVzZXJfaWQiOiJhZG1pbiIsInVzZXJfbmFtZSI6ImFkbWluIn0.YjqncbHSaJkm-TjVpvLDyHSRcztSD3zBQZjzLpFXQPA6jtnG_lFEiM1J_l9FKFCWXr9geaEbBR3DCf2fBSMqouI2-uA_EhOaODxU1Ta6VuDUTwWOvj5BXg4tiQ5D7xW2u90nx9T84IqEGp_Oeq1B9J5pTd7ugG06nEwydMe-mT_i9aEJIYtmmRKECO1v-9_8DcqgfSLU6mH0kyyP_HUFSAOXwqlLVAcb8M4lqaPOqeJTCUahhw8C4YZDCWsCs3aM1hVNIuYMfojO7JuHod1cSdROeMAWzS2FTn4HNZNCe_Xh8FWXy9HLFRymYwHjUYI0CMiBH3Qmmn_XmQ6lITll-A
 ```
 
-- Now let's create a `lab01.yml` file that will define you very 1st Concourse task. Please execute the following command:
+- Now let's create a `lab01.yml` file that will define you very 1st Concourse [Task](https://concourse-ci.org/tasks.html). Please execute the following command:
 
 ```
 cat << EOF > lab01.yml
@@ -332,7 +334,7 @@ cat lab01.yml
 fly -t workshop execute -c lab01.yml
 ```
 
-- You should see results similar to the example shown below:
+- You should see results similar to the example shown below, or a shorter version of it:
 
 ```
 uploading concourse done
@@ -441,7 +443,7 @@ ABC
 cat lab02.yml
 ```
 
-- To deploy this pipeline to your Concourse server, please use the following fly command to set a pipeline. Every workshop participant has his/her own Concourse server, so we don't need to worry about creating unique pipeline names. There's no risk of pipeline name collision. When you execute the following command you will be asked `apply configuration? [yN]:`, please answer `Y`.
+- To deploy this pipeline to your Concourse server, please use the following fly command. This is called _setting the pipeline_. Please note that every workshop participant has his/her own Concourse server, so we don't need to worry about creating unique pipeline names. There's no risk of pipeline name collision. When you execute the following command you will be asked `apply configuration? [yN]:`, please answer `Y`.
 
 ```
 fly -t workshop set-pipeline -p pipeline-lab02 -c lab02.yml
@@ -487,6 +489,41 @@ watch -n 1 fly -t workshop builds
 
 - Once you see that your job `pipeline-lab02/hello` has a status of `succeeded`, you can use `CTRL-C` to exit the `watch` command.
 
+- Let's do it all over again, but this time using the Concourse Web GUI. Please execute the following command on your Workshop VM to destroy the existing `pipeline-lab02`:
+
+```
+fly -t workshop destroy-pipeline -p pipeline-lab02 -n
+```
+
+- Note that the `-n` supresses the `are you sure? [yN]:` question.
+
+- Open your Concourse Web GUI which, you may recall, is at `http://userID.pks4u.com:8080` and, if needed, login as `admin` with password `admin`. You should see the following page:
+
+![](./images/ci-1.png)
+
+- Using your Workshop VM, please execute the following command:
+
+```
+fly -t workshop set-pipeline -p pipeline-lab02 -c lab02.yml -n
+```
+
+- Now take a look at your Concourse Web GUI and you should see the following:
+
+![](./images/ci-2.png)
+
+- Click on the `play` button, as shown above, and you should see the following:
+
+![](./images/ci-3.png)
+
+- Click on the `hello` job tile, as shown above, and you should see the following:
+
+![](./images/ci-4.png)
+
+- Click on the `plus` button, as shown above, to trigger a build of the `hello` job. 
+
+- The animation below exemplifies all the steps described until now and what happens after you click on the `plus` button:
+
+![](./images/ci-5.gif)
 
 
 
