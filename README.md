@@ -541,15 +541,18 @@ fly -t workshop set-pipeline -p pipeline-lab02 -c lab02.yml -n
 
 - Using the Concourse Web GUI, please click on the `+` button again to see the `hello` job be re-executed.
 
-- Now execute the following command using your 
+- Now execute the following command using your Workshop VM to see the builds:
 
-
+```
+fly -t workshop builds
+```
 
 **Let's recap:** 
 - You used the **fly** CLI to set the pipeline using the `lab02.yml` file.
 - The `lab02.yml` file contained a `job` and a `task`.
 - You `unpaused` the pipeline and triggered the `hello` job using the **fly** CLI and using the Concourse Web GUI.
 - You saw the output from the `job` using the **fly** CLI and using the Concourse Web GUI.
+- You saw the 1st and 2nd builds from the Concourse Web GUI and the **fly** CLI perspectives.
 
 - Congratulations, you have completed LAB-2.
 
