@@ -535,12 +535,25 @@ fly -t workshop set-pipeline -p pipeline-lab02 -c lab02.yml -n
 
 - Click on the `plus` button, as shown above, to trigger a build of the `hello` job. 
 
-- The animation below exemplifies all the steps described until now and what happens after you click on the `plus` button:
+- The 48-seconds animation below exemplifies all the steps described until now, as well as what happens after you click on the `plus` button:
 
 ![](./images/ci-5.gif)
 
+- Using the Concourse Web GUI, please click on the `+` button again to see the `hello` job be re-executed.
+
+- Now execute the following command using your 
 
 
+
+**Let's recap:** 
+- You used the **fly** CLI to set the pipeline using the `lab02.yml` file.
+- The `lab02.yml` file contained a `job` and a `task`.
+- You `unpaused` the pipeline and triggered the `hello` job using the **fly** CLI and using the Concourse Web GUI.
+- You saw the output from the `job` using the **fly** CLI and using the Concourse Web GUI.
+
+- Congratulations, you have completed LAB-2.
+
+Please update the [Workshop Google Sheet](https://docs.google.com/spreadsheets/d/16qIXY-L5ZA9phX4IUgRiXeT2Gjhj5MrpORAI8jPiSAA/edit?usp=sharing) with an "X" in the appropriate column.
 
 
 
