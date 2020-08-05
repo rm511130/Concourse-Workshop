@@ -193,6 +193,15 @@ Creating concourse_concourse_1    ... done
 
 ![](./images/welcome-to-concourse.png)
 
+- If your company allows it, you can click on either the Apple, the Windows Symbol or the Penguim to download to your PC or Mac the **fly** CLI. We will continue to use the Workshop VM which already has the **fly** CLI installed.
+
+- The **fly** CLI is just a single, self-contained executable file.
+
+- 
+
+
+
+
 
 
 **Let's recap:** 
