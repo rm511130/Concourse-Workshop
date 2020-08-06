@@ -10,18 +10,7 @@ This 2 hour hands-on session will provide developers and operators with hands on
 
 ### Introduction
 - Workshop Orientation
-- Intro to Concourse: link:presentation/concourse.pptx[_Concourse Intro_]
-
-### Labs
-- link:labs/pre-reqs.adoc[_Setup Environment Pre-reqs_]
-- link:labs/lab01.adoc[_World’s simplest Concourse Task_]
-- link:labs/lab02.adoc[_1st Job on Concourse Server_]
-- link:labs/lab03.adoc[_Introduce Git Resource_]
-- link:labs/lab04.adoc[_Modularize Tasks and Link Multiple Jobs_]
-- link:labs/lab05.adoc[_SSH into a Concourse task to debug on server_]
-- link:labs/lab06.adoc[_Push app to CF_]
-
-#
+- Intro to [Concourse](./presentation/concourse.pptx)
 
 ## Intro to Concourse
 
@@ -780,7 +769,7 @@ resources:
   type: git
   source:
     branch: master
-    uri: https://github.com/rm511130/concourse-workshop-AZ
+    uri: https://github.com/rm511130/Concourse-Workshop
 
 jobs:
 - name: unit-test
