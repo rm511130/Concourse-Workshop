@@ -661,7 +661,7 @@ Please update the [Workshop Google Sheet](https://docs.google.com/spreadsheets/d
 
 ![](./images/lab.png)
 
-- It is very common within an application's git repository to place all concourse artifacts in a _ci_ folder.  Within that folder individual tasks are modularized. Each task has its own `yml` file and refers to shell-scripts for actual task execution.
+- It is very common within an application's git repository to place all concourse artifacts in a `ci` folder.  Within that folder individual tasks are modularized. Each task has its own `yml` file and refers to shell-scripts for actual task execution.
 
 ```
 App Git Repo Root:
@@ -810,14 +810,47 @@ $ git commit -m "added concourse task assets"
 $ git push
 ```
 
+**Let's recap:** 
+- You created a pipeline that had two sequential jobs.
+- The first job is triggered by changes to a git repo.
+- The second job is triggered by the successful completion of the first job.
+
+- Congratulations, you have completed LAB-4.
+
+Please update the [Workshop Google Sheet](https://docs.google.com/spreadsheets/d/16qIXY-L5ZA9phX4IUgRiXeT2Gjhj5MrpORAI8jPiSAA/edit?usp=sharing) with an "X" in the appropriate column.
 
 
+-----------------------------------------------------
+## LAB-5: SSH into a Concourse task to debug on server
 
+![](./images/lab.png)
 
+- Builds don't always run smoothly.  At times a developer or operator will need to debug a failing build.  
+- Concourse provides the ability to SSH into a pipeline task in order to allow for troubleshooting and debugging.  
+- You may do this using the `hijack` CLI command.  The format is `hijack <PIPELINE-NAME>/<JOB_NAME>`
 
+- Let's SSH into one of your build tasks. Please execute the following command and, if you are presented with multiple tasks to log into, choose the most recent build:
 
+```
+fly -t workshop hijack -j pipeline-lab04/deploy
+```
 
+- Once you are connected to the container you can navigate the file system and execute commands. 
+- Please execute the following commands:
+- Execute a `mvn clean package` on the code that is cloned from git:
 
+```
+ls -l
+```
+
+```
+cd git-assets/
+ls -l
+```
+
+```
+mvn clean package
+```
 
 
 
