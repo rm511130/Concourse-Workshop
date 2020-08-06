@@ -555,6 +555,22 @@ fly -t workshop set-pipeline -p pipeline-lab02 -c lab02.yml -n
 
 ```
 fly -t workshop builds
+```
+- You should see an output similar to the one shown below:
+
+```
+id  pipeline/job          build  status     start                     end                       duration  team
+5   pipeline-lab02/hello  2      succeeded  2020-08-06@01:06:29+0000  2020-08-06@01:06:43+0000  14s       main
+4   pipeline-lab02/hello  1      succeeded  2020-08-06@01:05:49+0000  2020-08-06@01:06:02+0000  13s       main
+2   one-off               n/a    succeeded  2020-08-06@01:02:02+0000  2020-08-06@01:02:06+0000  4s        main
+1   one-off               n/a    succeeded  2020-08-06@01:01:35+0000  2020-08-06@01:01:56+0000  21s       main
+```
+
+- Note that the sequence of `id` numbers skips the number `3` because we executed a `fly -t workshop destroy-pipeline -p pipeline-lab02 -n` command a few steps ago.
+
+- You can view specific `STDOUT` for any `job` and specific `build number` using the `-b` option, as shown below:
+
+```
 fly -t workshop watch -j pipeline-lab02/hello -t -b 1
 fly -t workshop watch -j pipeline-lab02/hello -t -b 2
 ```
