@@ -617,7 +617,7 @@ fly -t workshop set-pipeline -p pipeline-lab02 -c lab03.yml -n
 
 - Your pipeline will now trigger automatically anytime the git repository changes. This is because we marked the `get task` in the pipeline to be triggered. By clicking on the `hello` job you should now see the output of both a `git clone` and execution of the task that outputs a simple message to `STDOUT`:
 
-
+- ABCDEFG
 
 
 
