@@ -780,7 +780,7 @@ resources:
   type: git
   source:
     branch: master
-    uri: https://github.com/rm511130/Concourse-Workshop
+    uri: https://github.com/rm511130/concourse-workshop-AZ
 
 jobs:
 - name: unit-test
