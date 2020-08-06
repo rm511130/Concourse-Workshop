@@ -191,7 +191,18 @@ Creating concourse_concourse-db_1 ... done
 Creating concourse_concourse_1    ... done
 ```
 
-- Once you get your command prompt back, please use a browser to access your Concourse GUI. The URL will be `userID.pks4u.com:8080` where `userID` is the UserID you claimed in the [Google Spreadsheet](https://docs.google.com/spreadsheets/d/16qIXY-L5ZA9phX4IUgRiXeT2Gjhj5MrpORAI8jPiSAA/edit?usp=sharing)
+- Once you get your command prompt back, please execute the following command to validate that both Concourse and its Postgres database are ruuning:
+```
+docker ps
+```
+- The output from the `docker ps` command should look similar to the example shown below. If this is not the case, please alert the Workshop Organizers.
+```
+CONTAINER ID        IMAGE                       COMMAND                  CREATED             STATUS              PORTS                    NAMES
+5f35bf31b282        concourse/concourse:5.6.0   "dumb-init /usr/loca…"   7 seconds ago       Up 5 seconds        0.0.0.0:8080->8080/tcp   concourse_concourse_1
+6fa9a7987b4d        postgres                    "docker-entrypoint.s…"   9 seconds ago       Up 6 seconds        5432/tcp                 concourse_concourse-db_1
+```
+
+- Use a browser to access your Concourse GUI. The URL will be `userID.pks4u.com:8080` where `userID` is the UserID you claimed in the [Google Spreadsheet](https://docs.google.com/spreadsheets/d/16qIXY-L5ZA9phX4IUgRiXeT2Gjhj5MrpORAI8jPiSAA/edit?usp=sharing)
 
 ![](./images/welcome-to-concourse.png)
 
