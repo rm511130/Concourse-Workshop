@@ -844,6 +844,7 @@ ls -l
 ```
 
 ```
+whoami
 cd git-assets/
 ls -l
 ```
@@ -852,8 +853,118 @@ ls -l
 mvn clean package
 ```
 
+**Let's recap:** 
+- You hijacked a pipeline using an SSH command to log into a container running a build task.
+- You were able to see the file system of the container and its contents.
+- You were also able to execute a Maven command.
+
+- Congratulations, you have completed LAB-5.
+
+Please update the [Workshop Google Sheet](https://docs.google.com/spreadsheets/d/16qIXY-L5ZA9phX4IUgRiXeT2Gjhj5MrpORAI8jPiSAA/edit?usp=sharing) with an "X" in the appropriate column.
 
 
+-----------------------------------------------------
+## LAB-6: Automating the _cf push_ of an App
+
+![](./images/lab.png)
+
+
+- The natural next step is to deploy our application to our PaaS: Tanzu Application Service.  
+- We'll add this to the `deploy` task within our pipeline. 
+- Let's start with the `~/concourse/ci/credentials.yml` file that will let us target the workshop's TAS environment. 
+- Please execute the following command:
+
+```
+cat << EOF > ~/concourse/ci/credentials.yml
+cf-username: $user
+cf-password: password
+cf-organization: org$my_number
+cf-space: workshop
+cf-api: api.sys.ourpcf.com
+EOF
+```
+
+- Now let's create the `manifest.yml` that will be used to `cf push` the App. Please execute the following command:
+
+```
+cat << EOF > ~/concourse/manifest.yml
+---
+applications:
+- name: concourse-demo-boot
+  memory: 1G
+  instances: 1
+  buildpack: java_buildpack_offline
+EOF
+```
+
+- Let's create a new version of the `~/concourse/ci/pipeline.yml` file. Please execute the following commands:
+
+```
+cp ~/concourse/ci/pipeline.yml ~/concourse/ci/pipeline-04.yml
+cat << EOF > ~/concourse/ci/pipeline.yml
+resources:
+- name: git-assets
+  type: git
+  source:
+    branch: master
+    uri: https://github.com/rm511130/Concourse-Workshop
+- name: tas
+  type: cf
+  source:
+    api: {{cf-api}}
+    skip_cert_check: true
+    organization: {{cf-organization}}
+    username: {{cf-username}}
+    password: {{cf-password}}
+    space: {{cf-space}}
+
+jobs:
+- name: unit-test
+  public: true
+  plan:
+  - get: git-assets
+    trigger: true
+  - task: mvn-test
+    file: git-assets/ci/tasks/mvn-test.yml
+- name: deploy
+  public: true
+  plan:
+  - get: git-assets
+    trigger: true
+    passed:
+      - unit-test
+  - task: mvn-package
+    file: git-assets/ci/tasks/mvn-package.yml
+  - put: tas
+    params:
+      manifest: git-assets/manifest.yml
+      path: app-output/concourse-demo.jar
+EOF
+```
+
+- Note the references to values in the `~/concourse/ci/pipeline.yml` in the format of `{{SOME-VALUE}}`, this is the way to refer to a variable that is configured at deploy time rather than statically in your pipeline.  
+- We will use the `~/concourse/ci/credentials.yml` file when we deploy the pipeline to populate the variables.
+- The `put: tas` task will be responsible for the deploy job, right after the mvn-package step.
+
+
+- Update your concourse pipeline using the fly set-pipeline command.  This time we'll use the `-l` flag to provide a variables file. Please execute the following command:
+
+```
+fly -t workshop set-pipeline -p pipeline-lab04 -c ~/concourse/ci/pipeline.yml -l ~/concourse/ci/credentials.yml
+```
+
+- If you refresh the Concourse web UI you'll note the resource output of `tas` has been added.
+
+- Since we didn't modify anything in git our build will not be triggered.  Manually select a task and kick it off.  The end result should be a push of your application to cloudfoundry.
+
+- You can verify your application is working by hitting the version /endpoint in your applicaion.  E.G.:
+
+```
+curl http://concourse-demo-boot.apps.cloud.zwickey.net/version
+```
+```
+0.0.9-SNAPSHOT
+```
 
 
 ## Where to go from Here??
