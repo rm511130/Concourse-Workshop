@@ -642,11 +642,27 @@ fly -t workshop set-pipeline -p pipeline-lab02 -c lab03.yml -n
 
 - Note that your pipeline has now changed to include the `git-assets` resource, which is an input to your pipeline. 
 
-- Your pipeline will now trigger automatically anytime the git repository changes. This is because we marked the `get task` in the pipeline to be triggered. By clicking on the `hello` job you should now see the output of both a `git clone` and execution of the task that outputs a simple message to `STDOUT`:
+- Your pipeline will now trigger automatically anytime the git repository changes. This is because we marked the `get task` in the pipeline to be triggered. 
 
-- ABCDEFG
+- Ask the Workshop Organizer to commit a change to the git repo. When you click on the `hello` job you should now see the output of both a `git clone` and execution of the task that outputs a simple message to `STDOUT`.
+
+![](./images/triggered.png)
+
+**Let's recap:** 
+- You have now experimented with git triggered pipelines.
+- You've also seen that the **fly** CLI provides you a report of the changes made to a pipeline.
+
+- Congratulations, you have completed LAB-3.
+
+Please update the [Workshop Google Sheet](https://docs.google.com/spreadsheets/d/16qIXY-L5ZA9phX4IUgRiXeT2Gjhj5MrpORAI8jPiSAA/edit?usp=sharing) with an "X" in the appropriate column.
 
 
+-----------------------------------------------------
+## LAB-4: Concourse Resources, Jobs, Tasks and Pipelines
+
+![](./images/lab.png)
+
+- Let's create `lab03.yml` using the following commands:
 
 ## Where to go from Here??
 
