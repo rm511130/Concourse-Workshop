@@ -413,8 +413,7 @@ Please update the [Workshop Google Sheet](https://docs.google.com/spreadsheets/d
 
 
 -----------------------------------------------------
-
-## LAB-2: Concourse Tasks, Jobs and Pipelines
+## LAB-2: Concourse Jobs, Tasks and Pipelines
 
 ![](./images/lab.png)
 
@@ -541,10 +540,12 @@ fly -t workshop set-pipeline -p pipeline-lab02 -c lab02.yml -n
 
 - Using the Concourse Web GUI, please click on the `+` button again to see the `hello` job be re-executed.
 
-- Now execute the following command using your Workshop VM to see the builds:
+- Now execute the following commands using your Workshop VM to see the builds:
 
 ```
 fly -t workshop builds
+fly -t workshop watch -j pipeline-lab02/hello -t -b 1
+fly -t workshop watch -j pipeline-lab02/hello -t -b 2
 ```
 
 **Let's recap:** 
@@ -559,12 +560,58 @@ fly -t workshop builds
 Please update the [Workshop Google Sheet](https://docs.google.com/spreadsheets/d/16qIXY-L5ZA9phX4IUgRiXeT2Gjhj5MrpORAI8jPiSAA/edit?usp=sharing) with an "X" in the appropriate column.
 
 
+-----------------------------------------------------
+## LAB-3: Concourse Resources, Jobs, Tasks and Pipelines
 
+![](./images/lab.png)
 
+- Let's create `lab03.yml` using the following commands:
 
+```
+cat << XYZ > lab03.yml
+resources:
+- name: git-assets
+  type: git
+  source:
+    branch: master
+    uri: https://github.com/rm511130/Concourse-Workshop
 
+jobs:
+- name: hello
+  plan:
+  - get: git-assets
+    trigger: true
+  - task: howdy
+    config:
+      platform: linux
+      image_resource:
+        type: docker-image
+        source: {repository: ubuntu}
+      run:
+        path: echo
+        args: ["Hello, $user's first pipeline!"]
+XYZ
+```
 
+- Let's check the contents of `lab03.yml`. Please execute the following command:
 
+```
+cat lab03.yml
+```
+
+- Now let's update the pipeline we used in Lab #2 instead of creating a new pipeline. Please execute the following command:
+
+```
+fly -t workshop set-pipeline -p pipeline-lab02 -c lab03.yml -n
+```
+
+- Look at the output from the command above. It highlights and color codes the changes made to the pipeline:
+
+![](./images/pipeline-changes.png)
+
+- Let's take a look at the Concourse Web GUI. You should see the following:
+
+![](./images/ci-lab03.png)
 
 
 
