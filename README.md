@@ -648,6 +648,11 @@ fly -t workshop set-pipeline -p pipeline-lab02 -c lab03.yml -n
 
 ![](./images/triggered.png)
 
+- During the triggered execution of the pipeline, you may also have seen that the main screen of your Concourse Web GUI was changing to show the active job:
+
+![](./images/ci-running.png)
+
+
 **Let's recap:** 
 - You have now experimented with git triggered pipelines.
 - You've also seen that the **fly** CLI provides you a report of the changes made to a pipeline.
