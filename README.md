@@ -780,7 +780,7 @@ resources:
   type: git
   source:
     branch: master
-    uri: https://github.com/azwickey-pivotal/concourse-workshop
+    uri: https://github.com/rm511130/Concourse-Workshop
 
 jobs:
 - name: unit-test
