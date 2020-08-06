@@ -1,5 +1,4 @@
-![](./images/vmware-logo.png)  
-
+![](./images/vmware-logo.png)
 ![](./images/concourse-title.png)
 
 ## Overview
