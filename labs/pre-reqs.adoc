@@ -1,0 +1,50 @@
+= Prerequisites For Labs
+
+== Install FLY CLI
+
+. In a browser navigate to http://concourse.run.cloud.zwickey.net/ and select the icon associated with your platform:
++
+image::fly.png[]
+
+. Add the downloaded binary to your system path
+
+. After adding to your system path you should be able to execute the fly command from a terminal window:
++
+[source,bash]
+---------------------------------------------------------------------
+$ fly -version                                                                                                                                  1 ↵
+2.6.0
+---------------------------------------------------------------------
+
+== Target and Login to Concourse Env
+
+. Execute the fly target command to connect to the Concourse environment.  When prompted to a username and password enter the credentials provided to you by your instructor.
++
+[source,bash]
+---------------------------------------------------------------------
+$ fly --target gcp login --concourse-url http://concourse.cloud.zwickey.net:8080 --team-name Main
+---------------------------------------------------------------------
+
+. Execute the fly login command, entering the credentials again when prompted.
++
+[source,bash]
+---------------------------------------------------------------------
+$ fly -t gcp login                                                                                                                              1 ↵
+username: admin
+password:
+
+target saved
+---------------------------------------------------------------------
+
+== Create a GIT repository to hold your concourse pipeline and artifacts
+
+. Fork this git repository:  https://github.com/azwickey-pivotal/concourse-workshop
+
+. Clone this repository to your local desktop
++
+[source,bash]
+---------------------------------------------------------------------
+$ git clone <YOUR-GIT-URL>
+---------------------------------------------------------------------
+
+. In your terminal window change directories to the root of your cloned git repo.  We'll use this location as a base for most our commands in the workshop
