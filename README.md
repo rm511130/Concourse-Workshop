@@ -797,9 +797,8 @@ fly -t workshop set-pipeline -p pipeline-lab04 -c ~/concourse/ci/pipeline.yml
 ```
 
 - Looking at the Concourse Web GUI, you should see that your pipeline now has steps (or jobs).  
-      1) Unit test your code and 
-      2) Package/Deploy your code.  
-         Step #2 will only kickoff if Step #1 is successful
+    - 1) Unit test your code and 
+    - 2) Package/Deploy your code. Step #2 will only kickoff if Step #1 is successful
 
 - Our last step would normally be to check all our new pipeline code into git. This should be everything in the `ci` folder. 
 - Once we commit our build is automatically triggered. 
