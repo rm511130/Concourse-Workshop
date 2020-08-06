@@ -191,7 +191,7 @@ Creating concourse_concourse-db_1 ... done
 Creating concourse_concourse_1    ... done
 ```
 
-- Once you get your command prompt back, please execute the following command to validate that both Concourse and its Postgres database are ruuning:
+- Once you get your command prompt back, please execute the following command to validate that both Concourse and its Postgres database are running:
 ```
 docker ps
 ```
