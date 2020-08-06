@@ -652,10 +652,16 @@ fly -t workshop set-pipeline -p pipeline-lab02 -c lab03.yml -n
 
 ![](./images/ci-running.png)
 
+- Please click on the `git-assets` you will see the changes made to the git repo:
+
+![](./images/ci-git-repo-changes.png)
+
+
 
 **Let's recap:** 
 - You have now experimented with git triggered pipelines.
 - You've also seen that the **fly** CLI provides you a report of the changes made to a pipeline.
+- You've also seen how easy it is to find out what exact change triggered the pipeline.
 
 - Congratulations, you have completed LAB-3.
 
