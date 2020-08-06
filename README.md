@@ -613,6 +613,12 @@ fly -t workshop set-pipeline -p pipeline-lab02 -c lab03.yml -n
 
 ![](./images/ci-lab03.png)
 
+- Note that your pipeline has now changed to include the `git-assets` resource, which is an input to your pipeline. 
+
+- Your pipeline will now trigger automatically anytime the git repository changes. This is because we marked the `get task` in the pipeline to be triggered. By clicking on the `hello` job you should now see the output of both a `git clone` and execution of the task that outputs a simple message to `STDOUT`:
+
+
+
 
 
 ## Where to go from Here??
