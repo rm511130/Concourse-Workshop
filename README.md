@@ -54,7 +54,7 @@ This 2-hour hands-on session will provide developers and operators with hands-on
 - Please use the [Workshop Google Sheet](https://docs.google.com/spreadsheets/d/16qIXY-L5ZA9phX4IUgRiXeT2Gjhj5MrpORAI8jPiSAA/edit?usp=sharing) to claim a UserID for this workshop. For example, Ralph Meira is user1.
 - Update the same [Workshop Google Sheet](https://docs.google.com/spreadsheets/d/16qIXY-L5ZA9phX4IUgRiXeT2Gjhj5MrpORAI8jPiSAA/edit?usp=sharing)  as you progress through the Labs, by placing an "X" in the appropriate column.
 - Each workshop participant will be assigned a Ubuntu VM previously set up for the execution of hands-on Labs. Your Laptop or Desktop will only be used for two purposes: 
-     - SSH'ing or PuTTY'ing into the Ubuntu VM 
+     - SSH'ing or [PuTTY](./PuTTY_and_SSH.md)'ing into the Ubuntu VM 
      - Browsing web pages
 - When carrying out hands-on labs, you will be asked to cut-&-paste the commands shown `in boxes like this one` from this GitHub page to your Ubuntu VM Terminal Window. However, when issuing commands, please make sure to alter the UserID to match the one you have claimed, e.g.:
   - `ssh -i fuse.pem ubuntu@user3.pks4u.com` is for `user3` 
