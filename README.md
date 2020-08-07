@@ -333,7 +333,9 @@ source <(fly completion --shell bash)
 fly -t 
 ```
 
-- Now click once on the `TAB` key. Now double-click on the `TAB` key. 
+- Now click once on the `TAB` key. It should have filled out the command with the word: `workshop`.
+
+- Now add an extra `SPACE` and double-click on the `TAB` key. It should show you all the options available to you.
 
 - Now let's create a `lab01.yml` file that will define you very 1st Concourse [Task](https://concourse-ci.org/tasks.html). Please execute the following command:
 
