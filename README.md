@@ -72,7 +72,7 @@ This 2-hour hands-on session will provide developers and operators with hands-on
 
 -----------------------------------------------------
 
-## LAB-1: SSH into your Linux Workshop VM environment & Let's get Concourse up and running locally
+## LAB-1: SSH into your Workshop VM environment & Let's get Concourse up and running locally
 
 ![](./images/lab.png)
 
