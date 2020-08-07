@@ -327,7 +327,13 @@ targets:
 source <(fly completion --shell bash)
 ```
 
-- Now start by only typing `fly -t` ... and then click once on the `TAB` key. Now double-click on the `TAB` key. 
+- Now start by only typing the following command without pressing `ENTER`:
+
+```
+fly -t
+```
+
+- Now click once on the `TAB` key. Now double-click on the `TAB` key. 
 
 - Now let's create a `lab01.yml` file that will define you very 1st Concourse [Task](https://concourse-ci.org/tasks.html). Please execute the following command:
 
