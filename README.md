@@ -28,7 +28,7 @@ This 2-hour hands-on session will provide developers and operators with hands-on
             
 ## The Concourse Architecture      
       
-- The architecture of Concourse CI is aircraft-inspired:
+- The architecture of Concourse CI is inspired by airports and aircrafts:
    - The Air Traffic Control (ATC) provides a REST API and web GUI, processes all logic, and manages all workflows. 
    - The ATC works closely with Transport Security Agency (TSA), which exposes an interface to workers, allowing them to register with ATC.
    - Workers consist of several components, the main one being Garden. 
