@@ -4,7 +4,7 @@
 
 ## Overview
 
-This 2 hour hands-on session will provide developers and operators with hands-on initial experience building delivery pipelines using Concourse. 
+This 2-hour hands-on session will provide developers and operators with hands-on initial experience building delivery pipelines using Concourse. 
 
 ## Intro to Concourse
 
@@ -25,12 +25,14 @@ This 2 hour hands-on session will provide developers and operators with hands-on
    - No need to backup concourse: we store and redeploy the pipelines.
    - Infrastructure agnostic: can be deploy on vSphere, VMC, AWS, GCP, Azure, locally using Docker, etc...
    - Open Source: no license required.
+            
+## The Concourse Architecture      
       
 - The architecture of Concourse CI is aircraft-inspired:
    - The Air Traffic Control (ATC) provides a REST API and web GUI, processes all logic, and manages all workflows. 
    - The ATC works closely with Transport Security Agency (TSA), which exposes an interface to workers, allowing them to register with ATC.
    - Workers consist of several components, the main one being Garden. 
-   - The Baggageclaim service provides Garden containers with a remote layered file system.
+   - The Baggage-Claim service provides Garden containers with a remote layered file system.
    - Workers are serviced by Groundcrew, which registers them with ATC at certain intervals, advertises supported resource types, and cleans up ephemeral containers on shutdown.
    
 ![](./images/concourse-diagram.png)
@@ -205,9 +207,9 @@ CONTAINER ID        IMAGE                       COMMAND                  CREATED
 
 ![](./images/welcome-to-concourse.png)
 
-- In the future, you can click on either the Apple, the Windows symbol or the Penguim to download the **fly** CLI to your PC or Mac. 
-- Note that the Apple, the Windows symbol and the Penguim are also shown on the bottom of your Concourse Web GUI.
-- If you do download the **fly** CLI, just remember to place it in a directory that is your `PATH` and to make it executable with, for example, a `chmod +x` commmand. 
+- In the future, you can click on either the Apple, the Windows symbol or the Penguin to download the **fly** CLI to your PC or Mac. 
+- Note that the Apple, the Windows symbol and the Penguin are also shown on the bottom of your Concourse Web GUI.
+- If you do download the **fly** CLI, just remember to place it in a directory that is your `PATH` and to make it executable with, for example, a `chmod +x` command. 
 
 - We will continue to use the Workshop VM which already has the **fly** CLI installed. 
 
@@ -526,7 +528,7 @@ succeeded
 fly -t workshop destroy-pipeline -p pipeline-lab02 -n
 ```
 
-- Note that the `-n` supresses the `are you sure? [yN]:` question.
+- Note that the `-n` suppresses the `are you sure? [yN]:` question.
 
 - Open your Concourse Web GUI which, you may recall, is at `http://userID.pks4u.com:8080` and, if needed, login as `admin` with password `admin`. You should see the following page:
 
@@ -778,7 +780,7 @@ EOF
 chmod +x ~/concourse/ci/tasks/*.sh
 ```
 
-- Now let's modify what was `lab03.yml` into your main `pipeline.yml`. It will reside in the the `ci directory` and include the `2` new tasks. These tasks will represent completely new jobs in your pipeline. These will test and package the java code included in your repository.  You will be replacing your `howdy` job. Your final `pipeline.yml` file can be created using the following command:
+- Now let's modify what was `lab03.yml` into your main `pipeline.yml`. It will reside in the `ci directory` and include the `2` new tasks. These tasks will represent completely new jobs in your pipeline. These will test and package the java code included in your repository.  You will be replacing your `howdy` job. Your final `pipeline.yml` file can be created using the following command:
 
 ```
 cat << EOF > ~/concourse/ci/pipeline.yml
@@ -909,7 +911,7 @@ EOF
 cat << EOF > ~/concourse/manifest.yml
 ---
 applications:
-- name: concourse-demo-boot
+- name: $user-concourse-demo-boot
   memory: 1G
   instances: 1
   buildpack: java_buildpack_offline
@@ -974,23 +976,36 @@ fly -t workshop set-pipeline -p pipeline-lab04 -c ~/concourse/ci/pipeline.yml -l
 
 - If you refresh the Concourse web UI you'll note the resource output of `tas` has been added.
 
-- Since we didn't modify anything in git our build will not be triggered.  Manually select a task and kick it off.  The end result should be a push of your application to cloudfoundry.
+- Since we didn't modify anything in git our build will not be triggered.  Manually select a task and kick it off.  The end result should be a push of your application to the TAS (Tanzu Application Service) PaaS (Platform as a Service).
 
-- You can verify your application is working by hitting the version /endpoint in your applicaion.  E.G.:
+- You can verify your application is working by hitting the `/version` endpoint in your application. Please execute the following command on your Workshop VM:
 
 ```
-curl http://concourse-demo-boot.apps.cloud.zwickey.net/version
-```
-```
-0.0.9-SNAPSHOT
+curl http://$user-concourse-demo-boot.apps.ourpcf.com/version; echo
 ```
 
+- You should see the following results.
 
-## Where to go from Here??
+```
+0.1.0-SNAPSHOT
+```
 
-- link:https://github.com/azwickey-pivotal/volume-demo[Create a pipeline that uses Semantic Versioning (SemVer) and checks pipeline outputs into git as a git release]
-- link:https://github.com/azwickey-pivotal/volume-demo[Cloudfoundry Blue/Green deployment]
-- link:https://github.com/azwickey-pivotal/concourse-deploy-gemfire[Create a pipeline that uses BOSH to deploy software]
+**Let's recap:** 
+- You have taken the 1st few steps towards creating a triggered Concourse Pipeline that _cf pushes_ a Spring Boot App to a PaaS.
+
+- Congratulations, you have completed LAB-6.
+
+Please update the [Workshop Google Sheet](https://docs.google.com/spreadsheets/d/16qIXY-L5ZA9phX4IUgRiXeT2Gjhj5MrpORAI8jPiSAA/edit?usp=sharing) with an "X" in the appropriate column.
 
 
-- You can check how Concourse compares with other CI tools here: http://concourse.ci/concourse-vs.html
+-----------------------------------------------------
+## CONGRATULATIONS
+
+You have completed all the Labs in this Workshop. You can continue to further your understanding and use of Concourse by simply searching for `Concourse CI Examples`.
+
+Take a look at this [link](https://concourse-ci.org/examples.html) and make sure to scroll-down all the way to the bottom of the page :-)
+
+If you have a few extra minutes, we would like to hear from you. How was the workshop experience? 
+Please send your comments and questions to RMeira@VMware.com
+
+Thank you!!
