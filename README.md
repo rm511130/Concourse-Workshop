@@ -10,14 +10,9 @@ This 2 hour hands-on session will provide developers and operators with hands-on
 
 - Concourse is an Open Source Continuous Integration Tool. It has a simple and effective architecture composed of:
 
-   - A CLI (Command-Line Interface) called **fly** for Linux, Windows or MacOS
-   - A Server component that runs the Web GUI and API interfaces. 
-   - The Web GUI is only used for:
-      - displaying the state of the pipelines
-      - for triggering pipelines manually. 
-   - All other tasks are performed via the **fly** CLI
+   - A CLI (Command-Line Interface) called **fly** for Linux, Windows or MacOS.
+   - A Server component that runs the Web GUI and API interfaces. The Web GUI is only used for displaying the state of the pipelines and for triggering pipelines manually. All other tasks are performed via the **fly** CLI
    - Pipelines are first-class citizens executed in Worker Machines 
-   - Written in Golang
    
 - Design Principles:
 
