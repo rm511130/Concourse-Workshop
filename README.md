@@ -916,17 +916,17 @@ cf-api: api.sys.ourpcf.com
 EOF
 ```
 
-- Now let's create the `manifest.yml` that will be used to `cf push` the App. Please execute the following command:
+- If you take a look at this Git repository, the `~/concourse/manifest.yml` file that will be used to `cf push` the App looks like this (see below). No action needed at this stage, just note that the route to your App will be randomly generated for uniqueness (i.e. to avoid clashing with your colleagues).
 
 ```
-cat << EOF > ~/concourse/manifest.yml
 ---
 applications:
-- name: $user-concourse-demo-boot
+- name: concourse-demo-boot
   memory: 1G
   instances: 1
-  buildpack: java_buildpack_offline
-EOF
+  random-route: true
+  buildpacks:
+  - java_buildpack_offline
 ```
 
 - Let's create a new version of the `~/concourse/ci/pipeline.yml` file. Please execute the following commands:
@@ -982,7 +982,8 @@ EOF
 - Update your concourse pipeline using the fly set-pipeline command.  This time we'll use the `-l` flag to provide a variables file. Please execute the following command:
 
 ```
-fly -t workshop set-pipeline -p pipeline-lab04 -c ~/concourse/ci/pipeline.yml -l ~/concourse/ci/credentials.yml
+fly -t workshop rename-pipeline -o pipeline-lab04 -n pipeline-lab06
+fly -t workshop set-pipeline -p pipeline-lab06 -c ~/concourse/ci/pipeline.yml -l ~/concourse/ci/credentials.yml
 ```
 
 - If you refresh the Concourse web UI you'll note the resource output of `tas` has been added.
