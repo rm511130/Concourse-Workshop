@@ -6,7 +6,6 @@
 
 This 2-hour hands-on session will provide developers and operators with hands-on initial experience building delivery pipelines using Concourse.   
 
-
 ## Intro to Concourse
 
 - Concourse is an Open Source Continuous Integration Tool. It has a simple and effective architecture composed of:
