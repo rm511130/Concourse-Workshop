@@ -9,7 +9,7 @@ This 2 hour hands-on session will provide developers and operators with hands on
 
 ### Introduction
 - Workshop Orientation
-- Intro to [Concourse](./presentation/concourse.pptx)
+- Intro to [Concourse](./presentation/concourse-vmware.pdf)
 
 ## Intro to Concourse
 
