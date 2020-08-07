@@ -855,33 +855,36 @@ Please update the [Workshop Google Sheet](https://docs.google.com/spreadsheets/d
 
 ![](./images/lab.png)
 
-- Builds don't always run smoothly.  At times a developer or operator will need to debug a failing build.  
-- Concourse provides the ability to SSH into a pipeline task in order to allow for troubleshooting and debugging.  
-- You may do this using the `hijack` CLI command.  The format is `hijack <PIPELINE-NAME>/<JOB_NAME>`
+- Builds don't always run smoothly.  At times a developer or operator will need to debug a failing build. Concourse provides the ability to SSH into a pipeline task in order to allow for troubleshooting and debugging. You may do this using the `hijack` CLI command.  The format is `hijack <PIPELINE-NAME>/<JOB_NAME>`
 
-- Let's SSH into one of your build tasks. Please execute the following command and, if you are presented with multiple tasks to log into, choose the most recent build:
+- Let's SSH into one of your build tasks. Please use the Concourse Web GUI to manually trigger the `Deploy` Job of your `Lab-04` pipeline. While it is active, please execute the following command and, if you are presented with multiple tasks to log into, choose the most recent build:
 
 ```
 fly -t workshop hijack -j pipeline-lab04/deploy
 ```
 
-- Once you are connected to the container you can navigate the file system and execute commands. 
+- Once you are connected to the container you can navigate the file-system and execute commands. 
 - Please execute the following commands:
-- Execute a `mvn clean package` on the code that is cloned from git:
 
 ```
 ls -l
-```
-
-```
 whoami
 cd git-assets/
 ls -l
 ```
 
+- Now please execute the following command:
+
 ```
 mvn clean package
 ```
+
+- Now please exit the ssh session by executing the following command:
+
+```
+exit
+```
+
 
 **Let's recap:** 
 - You hijacked a pipeline using an SSH command to log into a container running a build task.
