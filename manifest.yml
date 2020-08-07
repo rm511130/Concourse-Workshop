@@ -1,6 +1,7 @@
 ---
 applications:
-- name: $user-concourse-demo-boot
-  memory: 1G
+- name: concourse-demo-boot
+  memory: 521M
   instances: 1
+  random-route: true
   buildpack: java_buildpack_offline
