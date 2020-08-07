@@ -45,6 +45,7 @@ This 2-hour hands-on session will provide developers and operators with hands-on
    - [Credential Management](https://concourse-ci.org/creds.html)
 
 
+-----------------------------------------------------
 ## Workshop Orientation: Guidelines & Conventions
 
 - This self-paced workshop is primarily composed of hands-on labs. 
