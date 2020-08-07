@@ -991,7 +991,7 @@ curl http://$user-concourse-demo-boot.apps.ourpcf.com/version; echo
 ```
 
 **Let's recap:** 
-- You have taken the 1st few steps towards creating a triggered Concourse Pipeline that _cf pushes_ a Spring Boot App to a PaaS.
+- You created a triggered Concourse Pipeline that _cf pushes_ a Spring Boot App to a PaaS every time there's a change to a specific Git repo.
 
 - Congratulations, you have completed LAB-6.
 
@@ -1001,11 +1001,15 @@ Please update the [Workshop Google Sheet](https://docs.google.com/spreadsheets/d
 -----------------------------------------------------
 ## CONGRATULATIONS
 
-You have completed all the Labs in this Workshop. You can continue to further your understanding and use of Concourse by simply searching for `Concourse CI Examples`.
+- You have completed all the Labs in this Workshop. 
 
-Take a look at this [link](https://concourse-ci.org/examples.html) and make sure to scroll-down all the way to the bottom of the page :-)
+- You can continue to further your understanding and use of Concourse by simply using your favorite search engine and looking-up `Concourse CI Examples`.
 
-If you have a few extra minutes, we would like to hear from you. How was the workshop experience? 
-Please send your comments and questions to RMeira@VMware.com
+- Please take a look at this [link](https://concourse-ci.org/examples.html) and make sure to scroll-down all the way to the bottom of the page :-)
+
+If you have a few extra minutes, we would like to hear from you. 
+   - How was the workshop experience? 
+   - Please send your comments and questions to RMeira@VMware.com
 
 Thank you!!
+
