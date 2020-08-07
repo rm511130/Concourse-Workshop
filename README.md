@@ -327,7 +327,7 @@ targets:
 source <(fly completion --shell bash)
 ```
 
-- Now start by only typing the following command without pressing `ENTER` ... but do add a `SPACE` after the `-t`:
+- Now type the following command without pressing `ENTER` ... but do add a `SPACE` after the `-t`:
 
 ```
 fly -t 
