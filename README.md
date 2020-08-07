@@ -1016,13 +1016,11 @@ Please update the [Workshop Google Sheet](https://docs.google.com/spreadsheets/d
 
 - You have completed all the Labs in this Workshop. 
 
-- You can continue to further your understanding and use of Concourse by simply using your favorite search engine and looking-up `Concourse CI Examples`.
-
 - Please take a look at this [link](https://concourse-ci.org/examples.html) and make sure to scroll-down all the way to the bottom of the page :-)
 
-If you have a few extra minutes, we would like to hear from you. 
-   - How was the workshop experience? 
-   - Please send your comments and questions to RMeira@VMware.com
+- You can continue to further your understanding and use of Concourse by simply using your favorite search engine and looking-up `Concourse CI Examples`.
+
+- Please take 2 minutes to tell me about your workshop experience. Send your comments and questions to RMeira@VMware.com
 
 Thank you!!
 
