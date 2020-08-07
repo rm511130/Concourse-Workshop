@@ -4,7 +4,8 @@
 
 ## Overview
 
-This 2-hour hands-on session will provide developers and operators with hands-on initial experience building delivery pipelines using Concourse. 
+This 2-hour hands-on session will provide developers and operators with hands-on initial experience building delivery pipelines using Concourse.   
+
 
 ## Intro to Concourse
 
