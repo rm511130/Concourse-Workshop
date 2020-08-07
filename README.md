@@ -6,33 +6,37 @@
 
 This 2 hour hands-on session will provide developers and operators with hands on experience building delivery pipelines using Concourse. 
 
-## Content
-
-### Introduction
-- Workshop Orientation
-- Intro to [Concourse](./presentation/concourse-vmware.pdf)
-
 ## Intro to Concourse
 
-- Concourse is an Open Source Continuous Integration Tool. It has a simple and yet very effective architecture:
+- Concourse is an Open Source Continuous Integration Tool. It has a simple and effective architecture composed of:
 
-   - Command-line interface called **fly**
-   - A Server component that runs the web UI and the API called from the command-line. 
-   - The Web UI is only used for displaying the state of the pipelines and for triggering pipelines manually. 
-   - All other tasks are performed via the fly CLI.
-   - Worker machines where pipelines run
-
+   - A CLI (Command-Line Interface) called **fly** for Linux, Windows or MacOS
+   - A Server component that runs the Web GUI and API interfaces. 
+   - The Web GUI is only used for:
+      - displaying the state of the pipelines
+      - for triggering pipelines manually. 
+   - All other tasks are performed via the **fly** CLI
+   - Pipelines are first-class citizens executed in Worker Machines 
+   - Written in Golang
+   
 - Design Principles:
 
-   - No snowflakes: there is no configuration of concourse server that we can apply on run-time, no gui, etc.
-   - Usability in mind (with a single click you get what you need)
-   - Isolated builds. There is no longer build pollution because everything runs in a container
-   - Scalable. To add more capacity, we add more Worker machines.
-   - No plugins but docker images. You bring your own docker image. You don't depend on pre-installed plugins.
-   - We don't need to backup concourse. Instead we should find a way to simply redeploy our pipelines again.
-   - Infrastructure agnostic (we can deploy it in AWS, vSphere, GCP, Azure, others)
+   - No snowflakes: there is no configuration of concourse server that we can apply on run-time, no GUI with check-boxes, etc...
+   - Everything as Code: deployments, builds, and anything else can be automated, scripted, and then recreated without wizards or manual configuration.
+   - Usability: with a single click you get what you need
+   - Isolated builds: there is no longer build pollution because everything runs in an ephemeral, reproducible containers
+   - Scalable: to add more capacity, we add more Worker Machines. Any part of the pipeline can be scaled independently.
+   - No plugins: just docker container images, you bring your own docker images, and you don't depend on pre-installed plugins.
+   - No need to backup concourse: we store and redeploy the pipelines.
+   - Infrastructure agnostic: can be deploy on vSphere, VMC, AWS, GCP, Azure, locally using Docker, etc...
+   - Open Source: no license required.
+   
+- More details about [Concourse](./presentation/concourse-vmware.pdf)   
    
 - [Concourse documentation (e.g. release notes)](https://docs.pivotal.io/p-concourse/v5/rn/)
+   - [Auth & Teams](https://concourse-ci.org/auth.html)
+   - [User Roles](https://concourse-ci.org/user-roles.html)
+
 
 ## Workshop Orientation: Guidelines & Conventions
 
@@ -307,6 +311,14 @@ targets:
       type: Bearer
       value: eyJhbGciOiJSUzI1NiIsImtpZCI6IiIsInR5cCI6IkpXVCJ9.eyJjc3JmIjoiZTVmZTU2NTI4MjQ3MTk3NzcwOGJiMzk3MzgzN2M3Y2NhNTBmNmY5OGNhNTc0MzczNzk1MTM5ZGE1MzkwOGY5ZSIsImVtYWlsIjoiYWRtaW4iLCJleHAiOjE1OTY3Mzk5ODIsImlzX2FkbWluIjp0cnVlLCJuYW1lIjoiIiwic3ViIjoiQ2dWaFpHMXBiaElGYkc5allXdyIsInRlYW1zIjp7Im1haW4iOlsib3duZXIiXX0sInVzZXJfaWQiOiJhZG1pbiIsInVzZXJfbmFtZSI6ImFkbWluIn0.YjqncbHSaJkm-TjVpvLDyHSRcztSD3zBQZjzLpFXQPA6jtnG_lFEiM1J_l9FKFCWXr9geaEbBR3DCf2fBSMqouI2-uA_EhOaODxU1Ta6VuDUTwWOvj5BXg4tiQ5D7xW2u90nx9T84IqEGp_Oeq1B9J5pTd7ugG06nEwydMe-mT_i9aEJIYtmmRKECO1v-9_8DcqgfSLU6mH0kyyP_HUFSAOXwqlLVAcb8M4lqaPOqeJTCUahhw8C4YZDCWsCs3aM1hVNIuYMfojO7JuHod1cSdROeMAWzS2FTn4HNZNCe_Xh8FWXy9HLFRymYwHjUYI0CMiBH3Qmmn_XmQ6lITll-A
 ```
+
+- Let's switch on autocompletion. Please execute the following command:
+
+```
+source <(fly completion --shell bash)
+```
+
+- Now start by only typing the following `fly -t` ... and then click once on the `TAB` key. Did you see what happened? Now double-click on the `TAB` key. 
 
 - Now let's create a `lab01.yml` file that will define you very 1st Concourse [Task](https://concourse-ci.org/tasks.html). Please execute the following command:
 
