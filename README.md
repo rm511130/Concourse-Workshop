@@ -327,10 +327,10 @@ targets:
 source <(fly completion --shell bash)
 ```
 
-- Now start by only typing the following command without pressing `ENTER`:
+- Now start by only typing the following command without pressing `ENTER` ... but do add a `SPACE` after the `-t`:
 
 ```
-fly -t
+fly -t 
 ```
 
 - Now click once on the `TAB` key. Now double-click on the `TAB` key. 
