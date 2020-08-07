@@ -990,10 +990,11 @@ fly -t workshop set-pipeline -p pipeline-lab06 -c ~/concourse/ci/pipeline.yml -l
 
 - Since we didn't modify anything in git our build will not be triggered.  Manually select a task and kick it off.  The end result should be a push of your application to the TAS (Tanzu Application Service) PaaS (Platform as a Service).
 
-- You can verify your application is working by hitting the `/version` endpoint in your application. Please execute the following command on your Workshop VM:
+- You can verify your application is working by hitting the `/version` endpoint in your application. Please execute the following commands on your Workshop VM:
 
 ```
-curl http://$user-concourse-demo-boot.apps.ourpcf.com/version; echo
+my_url=$(cf a | grep demo-boot | awk '{ print $6 }')
+curl http://$my_url/version; echo
 ```
 
 - You should see the following results.
