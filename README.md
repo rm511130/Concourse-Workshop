@@ -11,19 +11,19 @@ This 2-hour hands-on session will provide developers and operators with hands-on
 - Concourse is an Open Source Continuous Integration Tool. It has a simple and effective architecture composed of:
 
    - A CLI (Command-Line Interface) called **fly** for Linux, Windows or MacOS.
-   - A Server component that runs the Web GUI and API interfaces. The Web GUI is only used for displaying the state of the pipelines and for triggering pipelines manually. All other tasks are performed via the **fly** CLI
-   - Pipelines are first-class citizens executed in Worker Machines 
+   - A Server component that runs the Web GUI and API interfaces. The Web GUI is only used for displaying the state of the pipelines and for triggering pipelines manually. All other tasks are performed via the **fly** CLI.
    
 - Design Principles:
 
    - No snowflakes: there is no configuration of concourse server that we can apply on run-time, no GUI with check-boxes, etc...
-   - Everything as Code: deployments, builds, and anything else can be automated, scripted, and then recreated without wizards or manual configuration.
-   - Usability: with a single click you get what you need
-   - Isolated builds: there is no longer build pollution because everything runs in an ephemeral, reproducible containers
+   - Everything as Code: deployments, builds, and anything else can be automated, scripted, and then recreated without wizards or manual configuration. 
+   - Usability: with a single click you get what you need.
+   - Isolated builds: there is no longer build pollution because everything runs in ephemeral, reproducible containers.
    - Scalable: to add more capacity, we add more Worker Machines. Any part of the pipeline can be scaled independently.
+   - Pipelines: first-class citizens executed in Worker Machines
    - No plugins: just docker container images, you bring your own docker images, and you don't depend on pre-installed plugins.
-   - No need to backup concourse: we store and redeploy the pipelines.
-   - Infrastructure agnostic: can be deploy on vSphere, VMC, AWS, GCP, Azure, locally using Docker, etc...
+   - No need to backup concourse: simply store and redeploy the pipelines (i.e. yaml files).
+   - Infrastructure agnostic: Concourse can be deploy on vSphere, VMC, AWS, GCP, Azure, locally using Docker, etc...
    - Open Source: no license required.
             
 ## The Concourse Architecture      
