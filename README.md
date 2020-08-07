@@ -4,7 +4,7 @@
 
 ## Overview
 
-This 2 hour hands-on session will provide developers and operators with hands on experience building delivery pipelines using Concourse. 
+This 2 hour hands-on session will provide developers and operators with hands-on initial experience building delivery pipelines using Concourse. 
 
 ## Intro to Concourse
 
@@ -30,17 +30,28 @@ This 2 hour hands-on session will provide developers and operators with hands on
    - No need to backup concourse: we store and redeploy the pipelines.
    - Infrastructure agnostic: can be deploy on vSphere, VMC, AWS, GCP, Azure, locally using Docker, etc...
    - Open Source: no license required.
+      
+- The architecture of Concourse CI is aircraft-inspired:
+   - The Air Traffic Control (ATC) provides a REST API and web GUI, processes all logic, and manages all workflows. 
+   - The ATC works closely with Transport Security Agency (TSA), which exposes an interface to workers, allowing them to register with ATC.
+   - Workers consist of several components, the main one being Garden. 
+   - The Baggageclaim service provides Garden containers with a remote layered file system.
+   - Workers are serviced by Groundcrew, which registers them with ATC at certain intervals, advertises supported resource types, and cleans up ephemeral containers on shutdown.
+   
+![](./images/concourse-diagram.png)
    
 - More details about [Concourse](./presentation/concourse-vmware.pdf)   
    
 - [Concourse documentation (e.g. release notes)](https://docs.pivotal.io/p-concourse/v5/rn/)
    - [Auth & Teams](https://concourse-ci.org/auth.html)
    - [User Roles](https://concourse-ci.org/user-roles.html)
+   - [Credential Management](https://concourse-ci.org/creds.html)
 
 
 ## Workshop Orientation: Guidelines & Conventions
 
-- This self-paced workshop includes presentations, videos, demos and most of all, hands-on labs. 
+- This self-paced workshop is primarily composed of hands-on labs. 
+- You can use a Windows PC or a Mac.
 - The labs are interdependent and must be executed in order.
 - The lab environments will only be available during the ~5hrs (a limited window of time) dedicated for the joint start and self-paced completion of the workshop.
 - Please use the [Workshop Google Sheet](https://docs.google.com/spreadsheets/d/16qIXY-L5ZA9phX4IUgRiXeT2Gjhj5MrpORAI8jPiSAA/edit?usp=sharing) to claim a UserID for this workshop. For example, Ralph Meira is user1.
@@ -318,7 +329,7 @@ targets:
 source <(fly completion --shell bash)
 ```
 
-- Now start by only typing the following `fly -t` ... and then click once on the `TAB` key. Did you see what happened? Now double-click on the `TAB` key. 
+- Now start by only typing `fly -t` ... and then click once on the `TAB` key. Now double-click on the `TAB` key. 
 
 - Now let's create a `lab01.yml` file that will define you very 1st Concourse [Task](https://concourse-ci.org/tasks.html). Please execute the following command:
 
